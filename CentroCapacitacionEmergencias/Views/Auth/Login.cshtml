@@ -1,0 +1,43 @@
+﻿@{
+    Layout = null;
+}
+
+@model CentroCapacitacionEmergencias.Models.LoginViewModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Centro Entrenamiento Emergencias</title>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" />
+</head>
+<body class="centered-page">
+
+    <div class="login-container">
+        <h2>Centro Entrenamiento Emergencias</h2>
+        <h3>Acceso al Sistema</h3>
+
+        <form method="post" action="/Auth/Login">
+
+            <div class="form-group">
+                <label>Nombre usuario:</label>
+                <input type="text" name="sNombreUsuario" required />
+            </div>
+
+            <div class="form-group">
+                <label>Password:</label>
+                <input type="password" name="sPassword" required />
+            </div>
+
+            <button type="submit" class="login-btn">Ingresar</button>
+
+        </form>
+
+        @if (ViewBag.Error != null)
+        {
+            <p class="error-message">@ViewBag.Error</p>
+        }
+    </div>
+</body>
+</html>

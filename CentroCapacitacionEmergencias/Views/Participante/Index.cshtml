@@ -1,0 +1,117 @@
+﻿@model IEnumerable<CentroCapacitacionEmergencias.Models.Participante>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.sTipoIdentificacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sNumeroIdentificacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sNombreCompleto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dtFechaNacimiento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sProvincia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sCanton)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sDistrito)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sDetallesResidencia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sEstadoCivil)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sTelefono)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sDireccionResidencia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sContactoEmergencia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bEstaActivo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.iIDCohorte)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.sTipoIdentificacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sNumeroIdentificacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sNombreCompleto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dtFechaNacimiento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sProvincia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sCanton)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sDistrito)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sDetallesResidencia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sEstadoCivil)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sTelefono)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sDireccionResidencia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sContactoEmergencia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bEstaActivo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.iIDCohorte)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ParticipanteId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ParticipanteId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ParticipanteId })
+        </td>
+    </tr>
+}
+
+</table>

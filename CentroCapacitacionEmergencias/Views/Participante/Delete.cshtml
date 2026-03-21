@@ -1,0 +1,144 @@
+﻿@model CentroCapacitacionEmergencias.Models.Participante
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Participante</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.sTipoIdentificacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sTipoIdentificacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sNumeroIdentificacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sNumeroIdentificacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sNombreCompleto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sNombreCompleto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dtFechaNacimiento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dtFechaNacimiento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sProvincia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sProvincia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sCanton)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sCanton)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sDistrito)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sDistrito)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sDetallesResidencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sDetallesResidencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sEstadoCivil)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sEstadoCivil)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sTelefono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sTelefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sDireccionResidencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sDireccionResidencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sContactoEmergencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sContactoEmergencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bEstaActivo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bEstaActivo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.iIDCohorte)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.iIDCohorte)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
