@@ -1,0 +1,52 @@
+﻿
+@model IEnumerable<CentroCapacitacionEmergencias.Models.ParticipanteCurso>
+
+
+@{
+    ViewBag.Title = "Evaluacion";
+}
+
+
+<h2>Evaluacion Participantes</h2>
+
+@if (TempData["mensaje"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["mensaje"]
+    </div>
+}
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <tr>
+            <th>Participante</th>
+            <th>Curso</th>
+            <th>Acción</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.PParticipante.sNombreCompleto</td>
+                <td>@item.CCurso.sNombreCurso</td>
+                <td>
+                    @Html.ActionLink(
+                        "Evaluar",
+                        "SeleccionarDestreza",
+                        new
+                             {
+                            participantId = item.iParticipanteID,
+                            cursoId = item.iCursoID
+                        },
+                        new { @class = "btn btn-primary" }
+                    )
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>No hay participantes con cursos asignados.</p>
+}

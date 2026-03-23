@@ -1,0 +1,42 @@
+﻿@model IEnumerable<CentroCapacitacionEmergencias.Models.Destreza>
+
+@{
+    ViewBag.Title = "Seleccionar Destreza";
+}
+
+<h2>Seleccionar Destreza</h2>
+
+<table class="table">
+
+    <tr>
+        <th>Destreza</th>
+        <th>Acción</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @item.NombreDestreza
+            </td>
+
+            <td>
+                @Html.ActionLink(
+                    "Evaluar",
+                    "Evaluacion",
+                    "Evaluacion",
+                    new
+                         {
+                        participanteId = ViewBag.ParticipanteId,
+                        cursoId = ViewBag.CursoId,
+                        destrezaId = item.DestrezaID
+                    },
+                    new { @class = "btn btn-success" }
+                )
+            </td>
+
+        </tr>
+    }
+
+</table>

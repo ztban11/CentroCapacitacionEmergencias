@@ -1,0 +1,60 @@
+﻿@model CentroCapacitacionEmergencias.Models.Destreza
+
+@{
+    ViewBag.Title = "Evaluacion de Destreza";
+}
+
+<h2>Evaluación de Destreza</h2>
+
+<h3>@Model.NombreDestreza</h3>
+
+@using (Html.BeginForm("GuardarEvaluacion", "Evaluacion", FormMethod.Post))
+{
+
+    @Html.Hidden("ParticipanteId",(int)ViewBag.ParticipanteId)
+    @Html.Hidden("CursoId", (int)ViewBag.CursoId)
+    @Html.Hidden("DestrezaId", Model.DestrezaID)
+
+    <h4>Métricas de Evaluación</h4>
+
+    <div>
+        <label>Tiempo de Respuesta (min:seg)</label>
+        <input type="text" name="TiempoRespuesta" required />
+    </div>
+
+    <div>
+        <label>Puntaje Final (1 - 100)</label>
+        <input type="number" name="PuntajeFinal" min="1" max="100" required />
+    </div>
+
+    <hr />
+
+    <h4>Puntos de Control Críticos</h4>
+
+    <label>
+        <input type="checkbox" name="control1" value="true" />
+        Verifica seguridad de la escena
+    </label>
+    <br />
+
+    <label>
+        <input type="checkbox" name="control2" value="true" />
+        Verifica estado de conciencia
+    </label>
+    <br />
+
+    <label>
+        <input type="checkbox" name="control3" value="true" />
+        Aplica protocolo correcto
+    </label>
+
+    <hr />
+
+    <br />
+    <br />
+
+    <button type="submit" class="btn btn-success">
+        Guardar Evaluación
+    </button>
+
+}

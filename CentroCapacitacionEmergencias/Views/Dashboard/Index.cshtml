@@ -8,6 +8,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Menú Principal</title>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" />
 </head>
 <body>
     <h2>Menú Principal</h2>
@@ -15,16 +16,20 @@
     <ul>
 
         <li>
-            <a href="/Participantes">Registro de participantes</a>
+            @if (Session["Rol"] != null && Session["Rol"].ToString() == "Administrador")
+            {
+                <a href="/Participante/Index">Registrar Participante</a>
+            }
+        </li>
+
+        <li>
+            <a href="/Evaluacion/Index">Evaluación de desempeño</a>
         </li>
 
         <li>
             <a href="#">Gestión de entrenamientos</a>
         </li>
 
-        <li>
-            <a href="#">Evaluación de desempeño</a>
-        </li>
 
         <li>
             <a href="/Auth/Logout">Cerrar sesión</a>

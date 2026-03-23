@@ -1,0 +1,24 @@
+﻿
+
+@model CentroCapacitacionEmergencias.Models.DashboardCursos
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+<h2>Panel de Monitoreo</h2>
+
+<hr />
+
+<div>
+    <h3>Tasa de Aprobación</h3>
+    <p>@Model.TasaAprobacion %</p>
+</div>
+
+<div>
+    <h3>Participantes Certificados</h3>
+    <p>@Model.ParticipantesCertificados / @Model.TotalParticipantes</p>
+</div>

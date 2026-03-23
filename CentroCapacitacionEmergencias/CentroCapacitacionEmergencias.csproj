@@ -128,17 +128,29 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\CohorteController.cs" />
+    <Compile Include="Controllers\CursoController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\EvaluacionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MonitoreoController.cs" />
     <Compile Include="Controllers\ParticipanteController.cs" />
+    <Compile Include="Controllers\ParticipanteCursoController.cs" />
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="Filters\AuthFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202603210635060_InitialCreate.cs" />
+    <Compile Include="Migrations\202603210635060_InitialCreate.Designer.cs">
+      <DependentUpon>202603210635060_InitialCreate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cohorte.cs" />
     <Compile Include="Models\Curso.cs" />
+    <Compile Include="Models\DashboardCursos.cs" />
+    <Compile Include="Models\Destreza.cs" />
+    <Compile Include="Models\Evaluacion.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\Participante.cs" />
     <Compile Include="Models\ParticipanteCurso.cs" />
@@ -206,6 +218,26 @@
     <Content Include="Views\Participante\Details.cshtml" />
     <Content Include="Views\Participante\Edit.cshtml" />
     <Content Include="Views\Participante\Index.cshtml" />
+    <Content Include="Views\Curso\Create.cshtml" />
+    <Content Include="Views\Curso\Delete.cshtml" />
+    <Content Include="Views\Curso\Details.cshtml" />
+    <Content Include="Views\Curso\Edit.cshtml" />
+    <Content Include="Views\Curso\Index.cshtml" />
+    <Content Include="Views\Cohorte\Create.cshtml" />
+    <Content Include="Views\Cohorte\Delete.cshtml" />
+    <Content Include="Views\Cohorte\Details.cshtml" />
+    <Content Include="Views\Cohorte\Edit.cshtml" />
+    <Content Include="Views\Cohorte\Index.cshtml" />
+    <Content Include="Views\ParticipanteCurso\Create.cshtml" />
+    <Content Include="Views\ParticipanteCurso\Delete.cshtml" />
+    <Content Include="Views\ParticipanteCurso\Details.cshtml" />
+    <Content Include="Views\ParticipanteCurso\Edit.cshtml" />
+    <Content Include="Views\ParticipanteCurso\Index.cshtml" />
+    <Content Include="Views\Participante\AsignarCursos.cshtml" />
+    <Content Include="Views\Evaluacion\Index.cshtml" />
+    <Content Include="Views\Evaluacion\SeleccionarDestreza.cshtml" />
+    <Content Include="Views\Evaluacion\Evaluacion.cshtml" />
+    <Content Include="Views\Monitoreo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -237,6 +269,11 @@
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Scripts\jquery-3.7.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.7.0.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202603210635060_InitialCreate.resx">
+      <DependentUpon>202603210635060_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,26 @@
+﻿@model CentroCapacitacionEmergencias.Models.Cohorte
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Cohorte</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.sNombreCohorte)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sNombreCohorte)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CohorteId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

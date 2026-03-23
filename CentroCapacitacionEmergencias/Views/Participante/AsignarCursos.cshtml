@@ -1,0 +1,78 @@
+﻿@model CentroCapacitacionEmergencias.Models.Participante
+
+@{
+    ViewBag.Title = "Asignar Cohorte y Cursos";
+}
+
+<h2>Asignar Cohorte y Cursos</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.ParticipanteId)
+
+<div class="form-horizontal">
+
+    <h4>@Model.sNombreCompleto</h4>
+
+    <hr />
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Cohorte</label>
+
+        <div class="col-md-10">
+
+            @Html.DropDownList(
+                "iIDCohorte",
+                (SelectList)ViewBag.Cohortes,
+                "Seleccione Cohorte",
+                new { @class = "form-control" }
+            )
+
+        </div>
+    </div>
+
+    <hr />
+
+    <h4>Cursos disponibles</h4>
+
+    <div class="form-group">
+
+        <div class="col-md-10 col-md-offset-2">
+
+            @foreach (var curso in (IEnumerable<CentroCapacitacionEmergencias.Models.Curso>)ViewBag.Cursos)
+            {
+                <div class="checkbox">
+
+                    <label>
+
+                        <input type="checkbox"
+                               name="cursosSeleccionados"
+                               value="@curso.CursoId" />
+
+                        @curso.sNombreCurso
+
+                    </label>
+
+                </div>
+            }
+
+        </div>
+    </div>
+
+
+    <br />
+
+    <div class="form-group">
+
+        <div class="col-md-offset-2 col-md-10">
+
+            <input type="submit"
+                   value="Guardar Asignación"
+                   class="btn btn-primary" />
+
+        </div>
+    </div>
+</div>
+}

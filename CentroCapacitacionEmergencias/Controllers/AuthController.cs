@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace CentroCapacitacionEmergencias.Controllers
 {
@@ -34,6 +35,10 @@ namespace CentroCapacitacionEmergencias.Controllers
             {
                 Session["Usuario"] = model.sNombreUsuario;
 
+                Session["Rol"] = "Administrador";
+
+                //FormsAuthentication.SetAuthCookie(model.sNombreUsuario, false);
+
                 return RedirectToAction("Index", "Dashboard");
             }
 
@@ -44,6 +49,7 @@ namespace CentroCapacitacionEmergencias.Controllers
 
         public ActionResult Logout()
         {
+            FormsAuthentication.SignOut();
             Session.Clear();
             return RedirectToAction("Login");
         }

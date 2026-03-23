@@ -11,10 +11,27 @@ using CentroCapacitacionEmergencias.Models;
 
 namespace CentroCapacitacionEmergencias.Controllers
 {
-    [Authorize(Roles = "Administrador,Instructor")]
     public class ParticipanteController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            if (Session["Usuario"] == null)
+            {
+                filterContext.Result = RedirectToAction("Login", "Auth");
+                return;
+            }
+
+            /*
+            if (Session["Rol"] == null || Session["Rol"].ToString() != "Administrador")
+            {
+                filterContext.Result = new HttpUnauthorizedResult();
+                return;
+            }*/
+
+            base.OnActionExecuting(filterContext);
+        }
 
         // GET: Participante
         public ActionResult Index()
@@ -38,9 +55,10 @@ namespace CentroCapacitacionEmergencias.Controllers
         }
 
         // GET: Participante/Create
-        [Authorize(Roles = "Administrador")]
         public ActionResult Create()
         {
+            ViewBag.iIDCohorte = new SelectList(db.setCohortes, "CohorteId", "sNombreCohorte");
+
             return View();
         }
 
@@ -49,21 +67,35 @@ namespace CentroCapacitacionEmergencias.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrador")]
-        public ActionResult Create([Bind(Include = "ParticipanteId,sTipoIdentificacion,sNumeroIdentificacion,sNombreCompleto,dtFechaNacimiento,sProvincia,sCanton,sDistrito,sDetallesResidencia,sEstadoCivil,sEmail,sTelefono,sDireccionResidencia,sContactoEmergencia,bEstaActivo,iIDCohorte")] Participante participante)
+        public ActionResult Create([Bind(Include = "sTipoIdentificacion,sNumeroIdentificacion,sNombreCompleto,dtFechaNacimiento,sProvincia,sCanton,sDistrito,sDetallesResidencia,sEstadoCivil,sEmail,sTelefono,sDireccionResidencia,sContactoEmergencia,bEstaActivo,iIDCohorte")] Participante participante)
         {
-            if (ModelState.IsValid)
-            {
-                db.setParticipantes.Add(participante);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+            db.setParticipantes.Add(participante);
+            db.SaveChanges();
+
+            return RedirectToAction("AsignarCursos", new { id = participante.ParticipanteId });
+
+            /*  if (!ModelState.IsValid)
+              {
+                   db.setParticipantes.Add(participante);
+                   db.SaveChanges();
+
+                   return RedirectToAction("Index");
+            var errores = ModelState.Values
+             .SelectMany(v => v.Errors);
+
+                foreach (var error in errores)
+                {
+                    System.Diagnostics.Debug.WriteLine(error.ErrorMessage);
+                }
             }
 
-            return View(participante);
+            if (ModelState.IsValid)
+                ViewBag.iIDCohorte = new SelectList(db.setCohortes, "iCohorteID", "sNombreCohorte", participante.iIDCohorte);
+
+            return View(participante);*/
         }
 
         // GET: Participante/Edit/5
-        [Authorize(Roles = "Administrador")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -83,7 +115,6 @@ namespace CentroCapacitacionEmergencias.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrador")]
         public ActionResult Edit([Bind(Include = "ParticipanteId,sTipoIdentificacion,sNumeroIdentificacion,sNombreCompleto,dtFechaNacimiento,sProvincia,sCanton,sDistrito,sDetallesResidencia,sEstadoCivil,sEmail,sTelefono,sDireccionResidencia,sContactoEmergencia,bEstaActivo,iIDCohorte")] Participante participante)
         {
             if (ModelState.IsValid)
@@ -96,7 +127,7 @@ namespace CentroCapacitacionEmergencias.Controllers
         }
 
         // GET: Participante/Deactivate
-        [Authorize(Roles = "Administrador")]
+        [HttpPost]
         public ActionResult Deactivate(int? id)
         {
             Participante participante = db.setParticipantes.Find(id);
@@ -129,6 +160,49 @@ namespace CentroCapacitacionEmergencias.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+        public ActionResult AsignarCursos(int id)
+        {
+            var participante = db.setParticipantes.Find(id);
+
+            if (participante == null)
+                return HttpNotFound();
+
+            ViewBag.Cohortes = new SelectList(db.setCohortes, "CohorteId", "sNombreCohorte");
+
+            ViewBag.Cursos = db.setCursos
+                .Where(c => c.bCursoActivo == true)
+                .ToList();
+
+            return View(participante);
+        }
+
+        [HttpPost]
+        public ActionResult AsignarCursos(int id, int iIDCohorte, int[] cursosSeleccionados)
+        {
+            var participante = db.setParticipantes.Find(id);
+
+            if (participante == null)
+                return HttpNotFound();
+
+            participante.iIDCohorte = iIDCohorte;
+
+            foreach (var cursoId in cursosSeleccionados)
+            {
+                var vParticipanteCurso = new ParticipanteCurso
+                {
+                    iParticipanteID = participante.ParticipanteId,
+                    iCursoID = cursoId
+                };
+
+                db.setParticipanteCursos.Add(vParticipanteCurso);
+            }
+
+            db.SaveChanges();
+
+            return RedirectToAction("AsignarCursos", new { id = participante.ParticipanteId });
         }
     }
 }
