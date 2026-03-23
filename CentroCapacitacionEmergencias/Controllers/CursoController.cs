@@ -11,7 +11,6 @@ using CentroCapacitacionEmergencias.Models;
 
 namespace CentroCapacitacionEmergencias.Controllers
 {
-    [Authorize(Roles = "Administrador,Instructor")]
     public class CursoController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -38,7 +37,6 @@ namespace CentroCapacitacionEmergencias.Controllers
         }
 
         // GET: Curso/Create
-        [Authorize(Roles = "Administrador")]
         public ActionResult Create()
         {
             return View();
@@ -49,7 +47,6 @@ namespace CentroCapacitacionEmergencias.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrador")]
         public ActionResult Create([Bind(Include = "CursoId,sNombreCurso,bCursoActivo")] Curso curso)
         {
             if (ModelState.IsValid)
@@ -63,7 +60,6 @@ namespace CentroCapacitacionEmergencias.Controllers
         }
 
         // GET: Curso/Edit/5
-        [Authorize(Roles = "Administrador")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -79,11 +75,8 @@ namespace CentroCapacitacionEmergencias.Controllers
         }
 
         // POST: Curso/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrador")]
         public ActionResult Edit([Bind(Include = "CursoId,sNombreCurso,bCursoActivo")] Curso curso)
         {
             if (ModelState.IsValid)
@@ -96,7 +89,6 @@ namespace CentroCapacitacionEmergencias.Controllers
         }
 
         // GET: Curso/Delete/5
-        [Authorize(Roles = "Administrador")]
         public ActionResult Deactivate(int? id)
         {
             if (id == null)
@@ -115,7 +107,6 @@ namespace CentroCapacitacionEmergencias.Controllers
         // POST: Curso/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrador")]
         public ActionResult DeleteConfirmed(int id)
         {
             Curso curso = db.setCursos.Find(id);

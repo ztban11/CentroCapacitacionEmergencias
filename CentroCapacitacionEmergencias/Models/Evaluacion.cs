@@ -27,5 +27,11 @@ namespace CentroCapacitacionEmergencias.Models
         public string Instructor { get; set; }
 
         public DateTime FechaEvaluacion { get; set; }
+
+        public virtual Participante Participante { get; set; }
+
+        public virtual Curso Curso { get; set; }
+
+        public virtual Destreza Destreza { get; set; }
     }
 }

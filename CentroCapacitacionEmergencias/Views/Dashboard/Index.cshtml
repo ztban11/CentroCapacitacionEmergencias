@@ -10,31 +10,50 @@
     <title>Menú Principal</title>
     <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" />
 </head>
-<body>
+<body class="centered-page">
     <h2>Menú Principal</h2>
 
-    <ul>
+    <div class="login-container">
+        <ul>
 
-        <li>
-            @if (Session["Rol"] != null && Session["Rol"].ToString() == "Administrador")
-            {
-                <a href="/Participante/Index">Registrar Participante</a>
-            }
-        </li>
+            <li>
+                @if (Session["Rol"] != null && Session["Rol"].ToString() == "Administrador")
+                {
+                    <a href="/Participante/Index">Registrar Participante</a>
+                }
+            </li>
 
-        <li>
-            <a href="/Evaluacion/Index">Evaluación de desempeño</a>
-        </li>
+            <li>
+                <a href="/Evaluacion/Index">Evaluación de desempeño</a>
+            </li>
 
-        <li>
-            <a href="#">Gestión de entrenamientos</a>
-        </li>
+            <li>
+                <a href="/Monitoreo/Index">Monitoreo Cohortes/Cursos</a>
+            </li>
 
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Mantenimiento Cohortes/Cursos <span class="caret"></span>
+                </a>
 
-        <li>
-            <a href="/Auth/Logout">Cerrar sesión</a>
-        </li>
+                <ul class="dropdown-menu">
 
-    </ul>
+                    <li>
+                        @Html.ActionLink("Cohortes", "Index", "Cohorte")
+                    </li>
+
+                    <li>
+                        @Html.ActionLink("Cursos", "Index", "Curso")
+                    </li>
+
+                </ul>
+            </li>
+
+            <li>
+                <a href="/Auth/Logout">Cerrar sesión</a>
+            </li>
+
+        </ul>
+    </div>
 </body>
 </html>

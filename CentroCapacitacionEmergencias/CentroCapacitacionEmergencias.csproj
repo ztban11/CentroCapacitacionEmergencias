@@ -154,6 +154,8 @@
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\Participante.cs" />
     <Compile Include="Models\ParticipanteCurso.cs" />
+    <Compile Include="Models\ParticipanteRiesgo.cs" />
+    <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\DBService.cs" />
@@ -238,6 +240,7 @@
     <Content Include="Views\Evaluacion\SeleccionarDestreza.cshtml" />
     <Content Include="Views\Evaluacion\Evaluacion.cshtml" />
     <Content Include="Views\Monitoreo\Index.cshtml" />
+    <Content Include="Views\Monitoreo\ParticipantesRiesgo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

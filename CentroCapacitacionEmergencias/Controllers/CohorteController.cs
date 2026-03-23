@@ -11,7 +11,7 @@ using CentroCapacitacionEmergencias.Models;
 
 namespace CentroCapacitacionEmergencias.Controllers
 {
-    [Authorize(Roles = "Administrador,Instructor")]
+    
     public class CohorteController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -37,8 +37,7 @@ namespace CentroCapacitacionEmergencias.Controllers
             return View(cohorte);
         }
 
-        // GET: Cohorte/Create
-        [Authorize(Roles = "Administrador")]
+
         public ActionResult Create()
         {
             return View();
@@ -49,11 +48,22 @@ namespace CentroCapacitacionEmergencias.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrador")]
-        public ActionResult Create([Bind(Include = "CohorteId,sNombreCohorte")] Cohorte cohorte)
+        public ActionResult Create(Cohorte cohorte)
         {
             if (ModelState.IsValid)
             {
+
+                if (cohorte.dFechaInicio < new DateTime(1753, 1, 1))
+                {
+                    cohorte.dFechaInicio = DateTime.Now;
+                }
+
+                if (cohorte.dFechaFin < new DateTime(1753, 1, 1))
+                {
+                    cohorte.dFechaFin = DateTime.Now;
+                }
+                cohorte.bCohorteArchivada = false;
+
                 db.setCohortes.Add(cohorte);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -63,7 +73,7 @@ namespace CentroCapacitacionEmergencias.Controllers
         }
 
         // GET: Cohorte/Edit/5
-        [Authorize(Roles = "Administrador")]
+
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -83,7 +93,7 @@ namespace CentroCapacitacionEmergencias.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrador")]
+
         public ActionResult Edit([Bind(Include = "CohorteId,sNombreCohorte")] Cohorte cohorte)
         {
             if (ModelState.IsValid)
@@ -96,7 +106,6 @@ namespace CentroCapacitacionEmergencias.Controllers
         }
 
         // GET: Cohorte/Delete/5
-        [Authorize(Roles = "Administrador")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -114,7 +123,6 @@ namespace CentroCapacitacionEmergencias.Controllers
         // POST: Cohorte/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrador")]
         public ActionResult DeleteConfirmed(int id)
         {
             Cohorte cohorte = db.setCohortes.Find(id);

@@ -1,0 +1,26 @@
+﻿
+
+@model IEnumerable<CentroCapacitacionEmergencias.Models.ParticipanteRiesgo>
+
+<h2>Participantes con dificultad</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Participante</th>
+            <th>Destreza</th>
+            <th>Puntaje</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.NombreParticipante</td>
+                <td>@item.NombreDestreza</td>
+                <td>@item.Puntaje</td>
+            </tr>
+        }
+    </tbody>
+</table>

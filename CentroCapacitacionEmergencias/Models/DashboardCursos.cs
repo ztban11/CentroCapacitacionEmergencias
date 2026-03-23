@@ -19,6 +19,15 @@ namespace CentroCapacitacionEmergencias.Models
         public List<ParticipanteRiesgoVM> ParticipantesRiesgo { get; set; }
 
         public List<ParticipanteHorasVM> IntervencionPendiente { get; set; }
+
+        public string EstadoSemaforo { get; set; }
+
+        public List<DestrezaRiesgo> DestrezasRiesgo { get; set; }
+
+        public DashboardCursos()
+        {
+            DestrezasRiesgo = new List<DestrezaRiesgo>();
+        }
     }
 
     public class ParticipanteRiesgoVM
@@ -38,5 +47,14 @@ namespace CentroCapacitacionEmergencias.Models
         public int HorasCompletadas { get; set; }
 
         public int HorasRequeridas { get; set; }
+    }
+
+    public class DestrezaRiesgo
+    {
+        public int DestrezaId { get; set; }
+
+        public string NombreDestreza { get; set; }
+
+        public int CantidadParticipantes { get; set; }
     }
 }

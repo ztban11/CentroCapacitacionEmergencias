@@ -2,19 +2,62 @@
 
 @model CentroCapacitacionEmergencias.Models.DashboardCursos
 
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2>Index</h2>
-
-
 <h2>Panel de Monitoreo</h2>
 
 <hr />
 
+<form method="get">
+
+    <div>
+
+        <label>Cohorte</label>
+
+        <select name="cohorteId">
+
+            <option value="">Seleccione Cohorte</option>
+
+            @foreach (var c in ViewBag.Cohortes)
+            {
+                <option value="@c.CohorteId"
+                        @(Model.CohorteId == c.CohorteId ? "selected" : "")>
+                    @c.sNombreCohorte
+                </option>
+            }
+
+        </select>
+
+    </div>
+
+    <div>
+
+        <label>Curso</label>
+
+        <select name="cursoId">
+
+            <option value="">Seleccione Curso</option>
+
+            @foreach (var curso in ViewBag.Cursos)
+            {
+                <option value="@curso.CursoId"
+                        @(Model.CursoId == curso.CursoId ? "selected" : "")>
+                    @curso.sNombreCurso
+                </option>
+            }
+
+        </select>
+
+    </div>
+
+    <br />
+
+    <button type="submit">Monitorear</button>
+
+</form>
+
+<hr>
+
 <div>
-    <h3>Tasa de Aprobación</h3>
+    <h3>Tasa Global de Aprobación</h3>
     <p>@Model.TasaAprobacion %</p>
 </div>
 
@@ -22,3 +65,60 @@
     <h3>Participantes Certificados</h3>
     <p>@Model.ParticipantesCertificados / @Model.TotalParticipantes</p>
 </div>
+
+<h3>Tasa Global de Aprobación</h3>
+
+@if (Model.EstadoSemaforo == "verde")
+{
+    <div style="background-color:green;color:white;padding:10px">
+        Excelente - @Model.TasaAprobacion %
+    </div>
+}
+
+@if (Model.EstadoSemaforo == "amarillo")
+{
+    <div style="background-color:orange;color:white;padding:10px">
+        Atención - @Model.TasaAprobacion %
+    </div>
+}
+
+@if (Model.EstadoSemaforo == "rojo")
+{
+    <div style="background-color:red;color:white;padding:10px">
+        Riesgo - @Model.TasaAprobacion %
+    </div>
+}
+
+<hr />
+
+<h3>Destrezas con mayor dificultad</h3>
+
+<table class="table">
+
+    <tr>
+        <th>Destreza</th>
+        <th>Participantes en riesgo</th>
+    </tr>
+
+    @foreach (var d in Model.DestrezasRiesgo)
+    {
+        <tr>
+
+            <td>
+                @Html.ActionLink(
+                    d.NombreDestreza,
+                    "ParticipantesEnRiesgo",
+                    "Monitoreo",
+                    new { destrezaId = d.DestrezaId },
+                    null
+                )
+            </td>
+
+            <td>
+                @d.CantidadParticipantes
+            </td>
+
+        </tr>
+    }
+
+</table>
