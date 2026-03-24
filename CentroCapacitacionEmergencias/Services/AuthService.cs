@@ -10,15 +10,16 @@ namespace CentroCapacitacionEmergencias.Services
 {
     public class AuthService
     {
-        public static bool bValidarUsuario(string sElNombreUsuario, string sElPassword, out string sElMensaje)
+        public static bool bValidarUsuario(string sElNombreUsuario, string sElPassword, out string sElMensaje, out string sElRol)
         {
+            sElRol = "";
             var config = SecurityConfigService.GetConfig();
 
             using (SqlConnection conn = DBService.GetConnection())
             {
                 conn.Open();
 
-                string query = @"SELECT IDUsuario, PasswordHash, IntentosFallidos, EstaBloqueado, FechaBloqueo 
+                string query = @"SELECT IDUsuario, PasswordHash, IntentosFallidos, EstaBloqueado, FechaBloqueo, Rol
                              FROM Usuarios WHERE NombreUsuario=@sElNombreUsuario";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
@@ -34,6 +35,7 @@ namespace CentroCapacitacionEmergencias.Services
 
                 int iIDUsuario = Convert.ToInt32(reader["IDUsuario"]);
                 string sPasswordAlmacenado = reader["PasswordHash"].ToString();
+                string sRol = reader["Rol"].ToString();
                 int iIntentosFallidos = Convert.ToInt32(reader["IntentosFallidos"]);
                 bool bEstaBloqueado = Convert.ToBoolean(reader["EstaBloqueado"]);
                 DateTime? dtFechaBloqueo = reader["FechaBloqueo"] as DateTime?;
@@ -57,6 +59,7 @@ namespace CentroCapacitacionEmergencias.Services
                 if (sPasswordAlmacenado == sElPassword)
                 {
                     ResetearIntentos(conn, iIDUsuario);
+                    sElRol = sRol;
                     sElMensaje = "Autenticación correcta.";
                     return true;
                 }

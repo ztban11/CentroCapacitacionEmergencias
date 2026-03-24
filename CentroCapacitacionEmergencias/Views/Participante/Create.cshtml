@@ -7,10 +7,10 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Participante</h4>
         <hr />
@@ -20,8 +20,19 @@
         <div class="form-group">
             @Html.LabelFor(model => model.sTipoIdentificacion, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.sTipoIdentificacion, new { htmlAttributes = new { @class = "form-control" } })
+
+                @Html.DropDownListFor(model => model.sTipoIdentificacion,
+                    new List<SelectListItem>
+                    {
+                        new SelectListItem { Text = "Seleccione:", Value = "" },
+                        new SelectListItem { Text = "Cédula", Value = "Cedula" },
+                        new SelectListItem { Text = "DIMEX", Value = "DIMEX" },
+                        new SelectListItem { Text = "Pasaporte", Value = "Pasaporte" }
+                    },
+                    new { @class = "form-control" })
+
                 @Html.ValidationMessageFor(model => model.sTipoIdentificacion, "", new { @class = "text-danger" })
+
             </div>
         </div>
 
@@ -44,7 +55,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.dtFechaNacimiento, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.dtFechaNacimiento, "{0:yyyy-MM- dd}", new { @class = "form-control", type = "date" } )
+                @Html.TextBoxFor(model => model.dtFechaNacimiento, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
                 @Html.ValidationMessageFor(model => model.dtFechaNacimiento, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -52,7 +63,19 @@
         <div class="form-group">
             @Html.LabelFor(model => model.sProvincia, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.sProvincia, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.sProvincia,
+                new List<SelectListItem>
+                {
+                    new SelectListItem { Text="Seleccione", Value="" },
+                    new SelectListItem { Text="San José", Value="San Jose" },
+                    new SelectListItem { Text="Alajuela", Value="Alajuela" },
+                    new SelectListItem { Text="Cartago", Value="Cartago" },
+                    new SelectListItem { Text="Heredia", Value="Heredia" },
+                    new SelectListItem { Text="Guanacaste", Value="Guanacaste" },
+                    new SelectListItem { Text="Puntarenas", Value="Puntarenas" },
+                    new SelectListItem { Text="Limón", Value="Limon" }
+                },
+                new { @class = "form-control", id = "Provincia" })
                 @Html.ValidationMessageFor(model => model.sProvincia, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -60,7 +83,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.sCanton, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.sCanton, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.sCanton, new List<SelectListItem>
+                {
+                    new SelectListItem { Text="Seleccione Provincia primero", Value="" }
+                },
+                new { @class = "form-control", id = "Canton" })
                 @Html.ValidationMessageFor(model => model.sCanton, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -68,7 +95,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.sDistrito, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.sDistrito, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.sDistrito, new List<SelectListItem>
+                {
+                    new SelectListItem { Text="Seleccione Cantón primero", Value="" }
+                },
+                new { @class = "form-control", id = "Distrito" })
                 @Html.ValidationMessageFor(model => model.sDistrito, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -84,7 +115,15 @@
         <div class="form-group">
             @Html.LabelFor(model => model.sEstadoCivil, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.sEstadoCivil, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.sEstadoCivil, new List<SelectListItem>
+           {
+               new SelectListItem { Text="Seleccione", Value="" },
+               new SelectListItem { Text="Soltero(a)", Value="Soltero" },
+               new SelectListItem { Text="Casado(a)", Value="Casado" },
+               new SelectListItem { Text="Divorciado(a)", Value="Divorciado" },
+               new SelectListItem { Text="Viudo(a)", Value="Viudo" }
+           },
+           new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.sEstadoCivil, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -135,4 +174,88 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+
+        $(document).ready(function(){
+
+           
+                var cantones = {
+                    "San Jose": ["Central","Escazú","Desamparados","Puriscal"],
+                    "Alajuela": ["Central","San Ramón","Grecia","San Mateo"],
+                    "Cartago": ["Central","Paraíso","La Unión","Jiménez"],
+                    "Heredia": ["Central","Barva","Santo Domingo"],
+                    "Guanacaste": ["Liberia","Nicoya","Santa Cruz"],
+                    "Puntarenas": ["Central","Esparza","Buenos Aires"],
+                    "Limon": ["Central","Pococí","Siquirres"]
+                };
+
+                var distritos = {
+
+                    "Central": ["Carmen", "Merced", "Hospital"],
+                    "Escazú": ["Escazú Centro", "San Rafael", "San Antonio"],
+                    "Desamparados": ["Desamparados Centro", "San Miguel", "San Juan de Dios"],
+                    "Puriscal": ["Santiago", "Mercedes Sur", "Barbacoas"],
+
+                    "San Ramón": ["San Ramón Centro", "Santiago", "San Juan"],
+                    "Grecia": ["Grecia Centro", "San Roque", "Tacares"],
+                    "San Mateo": ["San Mateo Centro", "Desmonte", "Jesús María"],
+
+                    "Paraíso": ["Paraíso Centro", "Santiago", "Orosi"],
+                    "La Unión": ["Tres Ríos", "San Diego", "San Juan"],
+                    "Jiménez": ["Juan Viñas", "Tucurrique", "Pejibaye"],
+
+                    "Barva": ["Barva Centro", "San Pedro", "San Pablo"],
+                    "Santo Domingo": ["Santo Domingo Centro", "San Vicente", "Paracito"],
+
+                    "Liberia": ["Liberia Centro", "Cañas Dulces", "Mayorga"],
+                    "Nicoya": ["Nicoya Centro", "Mansión", "San Antonio"],
+                    "Santa Cruz": ["Santa Cruz Centro", "Bolsón", "Veintisiete de Abril"],
+
+                    "Esparza": ["Espíritu Santo", "San Juan Grande", "Macacona"],
+                    "Buenos Aires": ["Buenos Aires Centro", "Volcán", "Potrero Grande"],
+
+                    "Pococí": ["Guápiles", "Jiménez", "Rita"],
+                    "Siquirres": ["Siquirres Centro", "Pacuarito", "Florida"]
+            };
+
+            $("#Provincia").change(function () {
+
+                var provincia = $(this).val();
+
+                var cantonSelect = $("#Canton");
+
+                cantonSelect.empty();
+
+                cantonSelect.append("<option>Seleccione</option>");
+
+                $.each(cantones[provincia], function(index,value){
+
+                    cantonSelect.append("<option>"+value+"</option>");
+
+                });
+
+            });
+
+            $("#Canton").change(function () {
+
+                var canton = $(this).val();
+
+                var distritoSelect = $("#Distrito");
+
+                distritoSelect.empty();
+
+                distritoSelect.append("<option>Seleccione</option>");
+
+                $.each(distritos[canton], function (index, value) {
+
+                    distritoSelect.append("<option>" + value + "</option>");
+
+                });
+
+            });
+
+        });
+
+    </script>
 }

@@ -132,7 +132,6 @@
     <Compile Include="Controllers\CursoController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\EvaluacionController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MonitoreoController.cs" />
     <Compile Include="Controllers\ParticipanteController.cs" />
     <Compile Include="Controllers\ParticipanteCursoController.cs" />

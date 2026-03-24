@@ -25,5 +25,7 @@ namespace CentroCapacitacionEmergencias.Data
         public DbSet<Destreza> setDestrezas { get; set; }
 
         public DbSet<Evaluacion> setEvaluaciones { get; set; }
+
+        public DbSet<Usuario> setUsuarios { get; set; }
     }
 }

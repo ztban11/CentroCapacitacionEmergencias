@@ -4,29 +4,13 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Agregar nuevo Cohorte", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.sNombreCohorte)
-        </th>
-        <th></th>
-    </tr>
-
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.dFechaInicio)
-        </th>
-        <th></th>
-    </tr>
-
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.dFechaFin)
         </th>
         <th></th>
     </tr>
@@ -38,9 +22,9 @@
                 @Html.DisplayFor(modelItem => item.sNombreCohorte)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.CohorteId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.CohorteId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.CohorteId })
+                @Html.ActionLink("Editar", "Edit", new { id = item.CohorteId }) |
+                @Html.ActionLink("Detalles", "Details", new { id = item.CohorteId }) |
+                @Html.ActionLink("Desactivar", "Delete", new { id = item.CohorteId })
             </td>
         </tr>
     }

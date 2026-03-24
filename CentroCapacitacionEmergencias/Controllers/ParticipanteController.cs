@@ -23,19 +23,16 @@ namespace CentroCapacitacionEmergencias.Controllers
                 return;
             }
 
-            /*
-            if (Session["Rol"] == null || Session["Rol"].ToString() != "Administrador")
-            {
-                filterContext.Result = new HttpUnauthorizedResult();
-                return;
-            }*/
-
             base.OnActionExecuting(filterContext);
         }
 
         // GET: Participante
         public ActionResult Index()
         {
+            if (Session["Rol"] == null || Session["Rol"].ToString() != "Administrador")
+            {
+                return RedirectToAction("Index", "Dashboard");
+            }
             return View(db.setParticipantes.ToList());
         }
 
@@ -63,8 +60,6 @@ namespace CentroCapacitacionEmergencias.Controllers
         }
 
         // POST: Participante/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "sTipoIdentificacion,sNumeroIdentificacion,sNombreCompleto,dtFechaNacimiento,sProvincia,sCanton,sDistrito,sDetallesResidencia,sEstadoCivil,sEmail,sTelefono,sDireccionResidencia,sContactoEmergencia,bEstaActivo,iIDCohorte")] Participante participante)
@@ -111,8 +106,6 @@ namespace CentroCapacitacionEmergencias.Controllers
         }
 
         // POST: Participante/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ParticipanteId,sTipoIdentificacion,sNumeroIdentificacion,sNombreCompleto,dtFechaNacimiento,sProvincia,sCanton,sDistrito,sDetallesResidencia,sEstadoCivil,sEmail,sTelefono,sDireccionResidencia,sContactoEmergencia,bEstaActivo,iIDCohorte")] Participante participante)
@@ -202,7 +195,9 @@ namespace CentroCapacitacionEmergencias.Controllers
 
             db.SaveChanges();
 
-            return RedirectToAction("AsignarCursos", new { id = participante.ParticipanteId });
+            TempData["Mensaje"] = "Asignación guardada correctamente.";
+
+            return RedirectToAction("Index");
         }
     }
 }

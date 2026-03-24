@@ -1,8 +1,10 @@
-﻿using CentroCapacitacionEmergencias.Models;
+﻿using CentroCapacitacionEmergencias.Data;
+using CentroCapacitacionEmergencias.Models;
 using CentroCapacitacionEmergencias.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Web;
 
 using System.Web.Mvc;
@@ -24,20 +26,20 @@ namespace CentroCapacitacionEmergencias.Controllers
                 return View(model);
 
             string sMensaje;
+            string sRol;
 
             bool bValido = AuthService.bValidarUsuario(
                 model.sNombreUsuario,
                 model.sPassword,
-                out sMensaje
+                out sMensaje,
+                out sRol
             );
 
             if (bValido)
             {
                 Session["Usuario"] = model.sNombreUsuario;
 
-                Session["Rol"] = "Administrador";
-
-                //FormsAuthentication.SetAuthCookie(model.sNombreUsuario, false);
+                Session["Rol"] = sRol;
 
                 return RedirectToAction("Index", "Dashboard");
             }
